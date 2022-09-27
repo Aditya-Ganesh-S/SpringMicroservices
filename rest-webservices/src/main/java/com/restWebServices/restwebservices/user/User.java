@@ -1,11 +1,15 @@
 package com.restWebServices.restwebservices.user;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class User {
 
     private int id;
+    @Size(min=2, message = "Name should have atleast 2 characters")
     private String name;
+    @Past(message = "Birth date should always be past date")
     private LocalDate birthDate;
 
     public User(int id, String name, LocalDate birthDate) {
