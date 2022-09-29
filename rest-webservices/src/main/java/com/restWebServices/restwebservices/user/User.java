@@ -1,13 +1,22 @@
 package com.restWebServices.restwebservices.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity(name="user_details")
 public class User {
 
+    @Id
+    @GeneratedValue
     private int id;
     @Size(min=2, message = "Name should have atleast 2 characters")
     @JsonProperty("user_name")
@@ -16,10 +25,26 @@ public class User {
     @JsonProperty("birth_date")
     private LocalDate birthDate;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Post> posts;
+
     public User(int id, String name, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public User() {
+
     }
 
     public int getId() {

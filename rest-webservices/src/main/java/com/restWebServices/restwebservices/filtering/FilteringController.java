@@ -36,6 +36,6 @@ public class FilteringController {
         return mappingJacksonValue;
 
     }
-    
+
 
 }
